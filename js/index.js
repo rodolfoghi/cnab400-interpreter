@@ -28,12 +28,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     break;
             }
 
-            drawTableFor(banco.header.campos, 'tableForHeader', true);
+            if (Boolean(banco)) {
+                drawTableFor(banco.header.campos, 'tableForHeader', true);
+            }
 
-
-            banco.detalhes.forEach(function(detalhe, index) {
-                drawTableFor(detalhe.campos, 'tableForDetalhes', index === 0);
-            });
+            if (Boolean(banco)) {
+                banco.detalhes.forEach(function(detalhe, index) {
+                    drawTableFor(detalhe.campos, 'tableForDetalhes', index === 0);
+                });
+            }
 
         };
 
