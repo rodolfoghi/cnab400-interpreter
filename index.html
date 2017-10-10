@@ -6,42 +6,69 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CNAB400</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.3/css/bulma.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 </head>
 <body>
-    <section class="section">
-        <div class="container">
-            <div class="file">
-                <label class="file-label">
-                    <input class="file-input" type="file" id="cnab400File" accept=".ret">
-                    <span class="file-cta">
-                        <span class="file-icon">
-                            <i class="fa fa-upload"></i>
-                        </span>
-                        <span class="file-label">
-                            Selecione um arquivo…
-                        </span>
-                    </span>
-                    <span class="file-name"></span>
-                </label>
-            </div>
+    <div class="container">
+        <div class="form-group">
+            <label for="exampleFormControlFile1">Selecione um arquivo de retorno CNAB400</label>
+            <input type="file" class="form-control-file" id="cnab400File" accept=".ret">
         </div>
-        <div id="warningMessage" class="notification is-warning">
-        </div>
-        <div class="container">
-            <div id="outuputFields" class="box">
 
-            </div>
-        </div>
-        <br>
-        <div class="container">
-            <div class="control">
-                <textarea id="output" class="textarea is-small" placeholder="Aqui irá aparecer o conteúdo do seu arquivo." readonly rows="10"></textarea>
-            </div>
-        </div>
-    </section>
+        <div id="warningMessage" class="notification is-warning"></div>
 
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#tabHeader" role="tab" aria-controls="tabHeader" aria-expanded="true">Header</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#tabDetalhes" role="tab" aria-controls="tabDetalhes">Detalhes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#tabConteudo" role="tab" aria-controls="tabConteudo">Conteúdo do arquivo</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+
+            <div class="tab-pane fade show active" id="tabHeader" role="tabpanel" aria-labelledby="home-tab">
+                <table class="table table-sm" id="tableForHeader">
+                    <thead>
+                        <tr>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="tabDetalhes" role="tabpanel" aria-labelledby="profile-tab">
+                <table class="table table-sm" id="tableForDetalhes">
+                    <thead>
+                        <tr>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="tabConteudo" role="tabpanel" aria-labelledby="dropdown1-tab">
+                <div class="form-group">
+                    <textarea class="form-control" id="outputConteudo" rows="20"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     <script src="./js/BancoDoBrasil.js"></script>
     <script src="./js/index.js"></script>
 </body>

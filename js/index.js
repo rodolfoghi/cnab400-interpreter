@@ -2,25 +2,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const CODIGO_BANCO_BRASIL = "001";
 
     let inputFile = document.getElementById('cnab400File');
-    let spanFileName = document.getElementsByClassName('file-name')[0];
     let warningMessage = document.getElementById('warningMessage');
-    let outuputFields = document.getElementById('outuputFields');
 
-    clearAndHideWarningMessage();
+    clear();
 
     inputFile.addEventListener('change', function(event) {
-        clearAndHideWarningMessage();
-        outuputFields.innerHTML = "";
+        clear();
 
         let file = inputFile.files[0];
-        spanFileName.textContent = file.name;
 
         let fileReader = new FileReader();
         fileReader.onload = function() {
             let banco = null;
             let text = fileReader.result;
-            let node = document.getElementById('output');
-            node.innerText = text;
+            let node = document.getElementById('outputConteudo');
+            node.textContent = text;
 
             let codigoDoBanco = text.substring(76, 79);
             switch (codigoDoBanco) {
@@ -32,17 +28,37 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     break;
             }
 
-            banco.campos.forEach(function(campo) {
-                renderInputFor(campo);
-            }, this);
+            drawTableFor(banco.header.campos, 'tableForHeader', true);
+
+
+            banco.detalhes.forEach(function(detalhe, index) {
+                drawTableFor(detalhe.campos, 'tableForDetalhes', index === 0);
+            });
+
         };
 
         fileReader.readAsText(file);
     });
 
-    function clearAndHideWarningMessage() {
+    function clear() {
+        clearWarningMessage();
+        clearTables();
+    }
+
+    function clearWarningMessage() {
         warningMessage.style.visibility = "hidden";
         warningMessage.textContent = "";
+    }
+
+
+    function clearTables() {
+        let tableForHeader = document.getElementById("tableForHeader");
+        tableForHeader.querySelector('thead > tr').innerHTML = "";
+        tableForHeader.querySelector('tbody').innerHTML = "";
+
+        let tableForDetalhes = document.getElementById("tableForDetalhes");
+        tableForDetalhes.querySelector('thead > tr').innerHTML = "";
+        tableForDetalhes.querySelector('tbody').innerHTML = "";
     }
 
     function showWarning(warningText) {
@@ -50,25 +66,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
         warningMessage.style.visibility = "";
     }
 
-    function renderInputFor(campo) {
-        let content = 
-            `<div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">${campo.nome}</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <p class="control">
-                  <input class="input" type="text" value="${campo.conteudo}">
-                </p>
-              </div>
-            </div>
-          </div>`;
 
-        if (campo.nome === "separator") {
-            content = "<hr>"
-        }
+    function drawTableFor(campos, targetTable, drawTh) {
+        let target = document.getElementById(targetTable);
+        let trThead = target.querySelector('thead > tr');
+        let tbody = target.querySelector('tbody');
+        let tr = document.createElement("tr");
 
-          outuputFields.innerHTML += content;
+        campos.forEach(function(campo) {
+            if (drawTh) {
+                let th = document.createElement("th");
+                th.textContent = campo.nome;
+                trThead.appendChild(th);
+            }
+
+            let td = document.createElement("td");
+            let divInputField = document.createElement("div");
+            divInputField.classList.add("input-field");
+            
+            let inputField = document.createElement("input");
+            inputField.classList.add("form-control");
+            inputField.value = campo.conteudo;
+
+            divInputField.appendChild(inputField);
+            td.appendChild(divInputField);
+            tr.appendChild(td);
+        }, this);
+
+        tbody.appendChild(tr);
     }
 });
